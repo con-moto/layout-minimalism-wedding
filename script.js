@@ -63,10 +63,7 @@ function attachFormHandler(formId, statusId) {
     try {
       const response = await fetch(form.action, {
         method: "POST",
-        body: formData,
-        headers: {
-          Accept: "application/json"
-        }
+        body: formData
       });
 
       if (response.ok) {
@@ -103,13 +100,12 @@ attachFormHandler("rsvp-form", "rsvp-status");
     right: Array.from(rightCol.children)
   };
 
-  // желаемый порядок времени для мобильной версии
   const MOBILE_ORDER = [
-    "12:00", // регистрация
-    "15:00", // фотосессия
-    "16:30", // ужин
-    "21:00", // торт
-    "23:30"  // окончание
+    "12:00",
+    "15:00",
+    "16:30",
+    "21:00",
+    "23:30"
   ];
 
   let isMobileApplied = false;
