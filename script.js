@@ -107,7 +107,7 @@
   onResize();
 })();
 
-// FORM HANDLERS (Vercel backend)
+/// FORM HANDLERS (Vercel backend)
 (function () {
   function attachFormHandler(formId, statusId) {
     const form = document.getElementById(formId);
@@ -121,10 +121,26 @@
       if (statusEl) statusEl.textContent = "Отправляем...";
 
       const formData = new FormData(form);
+      const plain = {};
+
+      formData.forEach((value, key) => {
+        if (plain[key]) {
+          // если несколько значений с одним ключом (alcohol[])
+          if (!Array.isArray(plain[key])) {
+            plain[key] = [plain[key]];
+          }
+          plain[key].push(value);
+        } else {
+          plain[key] = value;
+        }
+      });
 
       fetch(form.action, {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(plain),
       })
         .then((response) => response.json())
         .then((data) => {
