@@ -54,16 +54,10 @@
 
   const itemsOrderDesktop = {
     left: Array.from(leftCol.children),
-    right: Array.from(rightCol.children)
+    right: Array.from(rightCol.children),
   };
 
-  const MOBILE_ORDER = [
-    "12:00",
-    "15:00",
-    "16:30",
-    "21:00",
-    "23:30"
-  ];
+  const MOBILE_ORDER = ["12:00", "15:00", "16:30", "21:00", "23:30"];
 
   let isMobileApplied = false;
 
@@ -73,8 +67,8 @@
 
     const allItems = [...itemsOrderDesktop.left, ...itemsOrderDesktop.right];
 
-    const ordered = MOBILE_ORDER.map(time => {
-      return allItems.find(item =>
+    const ordered = MOBILE_ORDER.map((time) => {
+      return allItems.find((item) =>
         item
           .querySelector(".timeline__text")
           ?.textContent.trim()
@@ -85,7 +79,7 @@
     leftCol.innerHTML = "";
     rightCol.innerHTML = "";
 
-    ordered.forEach(item => {
+    ordered.forEach((item) => {
       leftCol.appendChild(item);
     });
   }
@@ -97,8 +91,8 @@
     leftCol.innerHTML = "";
     rightCol.innerHTML = "";
 
-    itemsOrderDesktop.left.forEach(item => leftCol.appendChild(item));
-    itemsOrderDesktop.right.forEach(item => rightCol.appendChild(item));
+    itemsOrderDesktop.left.forEach((item) => leftCol.appendChild(item));
+    itemsOrderDesktop.right.forEach((item) => rightCol.appendChild(item));
   }
 
   function onResize() {
@@ -111,4 +105,50 @@
 
   window.addEventListener("resize", onResize);
   onResize();
+})();
+
+// FORM HANDLERS (Vercel backend)
+(function () {
+  function attachFormHandler(formId, statusId) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+
+    const statusEl = statusId ? document.getElementById(statusId) : null;
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      if (statusEl) statusEl.textContent = "Отправляем...";
+
+      const formData = new FormData(form);
+
+      fetch(form.action, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (statusEl) {
+            if (data.success) {
+              statusEl.textContent =
+                data.message || "Спасибо! Форма отправлена.";
+              form.reset();
+            } else {
+              statusEl.textContent =
+                "Произошла ошибка. Попробуйте позже.";
+            }
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          if (statusEl) {
+            statusEl.textContent =
+              "Произошла ошибка. Попробуйте позже.";
+          }
+        });
+    });
+  }
+
+  attachFormHandler("details-form", "details-status");
+  attachFormHandler("rsvp-form", "rsvp-status");
 })();
