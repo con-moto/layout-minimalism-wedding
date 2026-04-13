@@ -1,5 +1,4 @@
 // COUNTDOWN
-
 (function () {
   const targetDate = new Date("2026-07-25T00:00:00+03:00").getTime();
 
@@ -44,7 +43,6 @@
 })();
 
 // TIMELINE ORDER ON MOBILE (<=902px)
-
 (function () {
   const BREAKPOINT = 902;
   const timeline = document.querySelector(".timeline");
