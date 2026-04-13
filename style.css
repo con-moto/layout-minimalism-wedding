@@ -706,6 +706,8 @@ body {
 .section--dark {
   background: var(--color-bg-dark);
   color: #fff;
+  opacity: 0.85;
+  margin-bottom: 48px;
 }
 
 .details .wrapper {
