@@ -43,49 +43,8 @@
   const timerId = setInterval(updateCountdown, 1000);
 })();
 
-// FORM HANDLERS (SubmitForm.com)
-
-function attachFormHandler(formId, statusId) {
-  const form = document.getElementById(formId);
-  const statusEl = document.getElementById(statusId);
-
-  if (!form || !statusEl) return;
-
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-
-    statusEl.textContent = "Отправка...";
-    statusEl.classList.remove("status--error");
-    statusEl.classList.remove("status--success");
-
-    try {
-      const response = await fetch(form.action, {
-        method: "POST",
-        body: formData
-      });
-
-      if (response.ok) {
-        statusEl.textContent = "Спасибо! Ваш ответ отправлен.";
-        statusEl.classList.add("status--success");
-        form.reset();
-      } else {
-        statusEl.textContent = "Что-то пошло не так. Попробуйте ещё раз.";
-        statusEl.classList.add("status--error");
-      }
-    } catch (err) {
-      statusEl.textContent = "Ошибка сети. Попробуйте чуть позже.";
-      statusEl.classList.add("status--error");
-    }
-  });
-}
-
-// подключаем обе формы
-attachFormHandler("details-form", "details-status");
-attachFormHandler("rsvp-form", "rsvp-status");
-
 // TIMELINE ORDER ON MOBILE (<=902px)
+
 (function () {
   const BREAKPOINT = 902;
   const timeline = document.querySelector(".timeline");
