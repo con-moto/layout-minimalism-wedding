@@ -40,7 +40,7 @@
 
   --fs-section-title: 60px;
   --fs-section-label: 18px;
-  --fs-section-body: 17px;
+  --fs-section-body: 18px;
   --fs-note: 18px;
 
   /* отступы */
@@ -295,10 +295,10 @@ body {
 }
 
 .hero__countdown-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-bebas-light-weight);
   font-size: var(--fs-hero-text);
-  letter-spacing: 0.06em;
-  text-transform: none;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
   color: var(--color-hero-text);
 }
 
