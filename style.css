@@ -91,6 +91,9 @@ body {
   justify-content: flex-end;
   align-items: center;
 
+  min-height: 100vh;
+  min-height: 100svh; /* стабильная высота на мобиле [web:5][web:14][web:18] */
+
   padding-block-start: 10%;
   padding-block-end: 3%;
   padding-inline-end: 13%;
@@ -1105,17 +1108,22 @@ body {
 
 @media (max-width: 902px) {
   .hero {
-    display: block;
-    padding-block-start: 0;
-    padding-block-end: 0;
-    padding-inline-end: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    min-height: 100vh;
+    min-height: 100svh;
+
     background-image: none;
+    padding: 0;
   }
 
   .hero__photo {
     display: block;
     width: 100%;
-    height: 75vh;
+    height: 45vh;
     overflow: hidden;
   }
 
@@ -1125,12 +1133,18 @@ body {
 
   .hero__content {
     max-width: 100%;
-    padding: 20px 16px 28px;
+    padding: 24px 16px 28px;
     margin: 0 auto;
+
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .hero__column {
     max-width: 100%;
+    gap: 24px;
   }
 
   .section {
@@ -1223,6 +1237,8 @@ body {
   :root {
     --fs-count-number: 20px;
     --fs-count-unit: 11px;
+    --fs-hero-name: clamp(26px, 7vw, 34px);
+    --fs-hero-text: 16px;
   }
 
   .hero__countdown-grid {
@@ -1239,30 +1255,5 @@ body {
 
   .note-text {
     font-size: 14px;
-  }
-}
-
-/* отдельный брейкпоинт под перестройку тайминга – сетка (порядок делает JS) */
-@media (max-width: 902px) {
-  .timeline {
-    grid-template-columns: 1fr;
-    row-gap: 32px;
-  }
-
-  .timeline__col--center {
-    display: none;
-  }
-
-  .timeline__col--left,
-  .timeline__col--right {
-    align-items: center;
-    margin-block-start: 0;
-  }
-
-  .timeline__item,
-  .timeline__col--left .timeline__item,
-  .timeline__col--right .timeline__item {
-    max-width: 100%;
-    text-align: center;
   }
 }
